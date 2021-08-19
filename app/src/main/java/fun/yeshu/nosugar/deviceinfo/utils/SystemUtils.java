@@ -1,4 +1,4 @@
-package fun.yeshu.nosugar.deviceinfo;
+package fun.yeshu.nosugar.deviceinfo.utils;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.INTERNET;
@@ -413,7 +413,7 @@ public class SystemUtils {
         long blockSize = stat.getBlockSize();
         //区块总数
         long totalBlocks = stat.getBlockCount();
-        return "手机内部总空间: " + getFileSizeDescription(totalBlocks * blockSize) + "\n";
+        return getFileSizeDescription(totalBlocks * blockSize);
     }
 
     /**
@@ -451,9 +451,9 @@ public class SystemUtils {
             StatFs stat = new StatFs(path.getPath());
             long blockSize = stat.getBlockSize();
             long totalBlocks = stat.getBlockCount();
-            return "SD 卡总空间: " + getFileSizeDescription(totalBlocks * blockSize) + "\n";
+            return getFileSizeDescription(totalBlocks * blockSize);
         } else {
-            return "SD 卡总空间: UNKNOW" + "\n";
+            return "null";
         }
     }
 

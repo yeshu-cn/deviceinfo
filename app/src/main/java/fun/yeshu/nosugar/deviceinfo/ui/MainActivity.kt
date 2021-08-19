@@ -1,6 +1,11 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.ui
 
+import `fun`.yeshu.nosugar.deviceinfo.utils.SpUtils
+import `fun`.yeshu.nosugar.deviceinfo.ui.app.InstalledAppsActivity
+import `fun`.yeshu.nosugar.deviceinfo.ui.call.CallHistoryActivity
 import `fun`.yeshu.nosugar.deviceinfo.databinding.ActivityMainBinding
+import `fun`.yeshu.nosugar.deviceinfo.ui.device.DeviceInfoActivity
+import `fun`.yeshu.nosugar.deviceinfo.ui.message.MessageListActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,10 +23,19 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "无糖信息采集工具"
 
-        initDeviceInfo()
+        binding.btnDeviceInfo.setOnClickListener {
+            goToDeviceInfo()
+        }
         binding.btnCalllog.setOnClickListener { goToCallLog() }
         binding.btnSms.setOnClickListener { goToSmsLog() }
-        binding.btnBackupApk.setOnClickListener {backupApk()}
+        binding.btnBackupApk.setOnClickListener { backupApk() }
+
+
+        binding.tvCaseId.text = SpUtils.getCaseId(this)
+        binding.tvDeviceId.text = SpUtils.getDeviceId(this)
+        binding.layoutCaseInfo.setOnClickListener {
+            startActivity(Intent(this, SetInfoActivity::class.java))
+        }
     }
 
     private fun backupApk() {
@@ -48,22 +62,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToSmsLog() {
-        run()
-        //startActivity(Intent(this, MessageListActivity::class.java))
+        //run()
+        startActivity(Intent(this, MessageListActivity::class.java))
         //println("sms->${SmsUtils.getSmsInPhone(this).size}")
     }
 
-    private fun initDeviceInfo() {
-        val basic = SystemUtils.getSysVersionInfo(this)
-        val imei = SystemUtils.getIMEI(this)
-        val storage = SystemUtils.getTotalInternalMemorySize() + SystemUtils.getAvailableInternalMemorySize() +
-                SystemUtils.getTotalExternalMemorySize() + SystemUtils.getAvailableExternalMemorySize()
-        val mac = SystemUtils.getMacAddress(this)
-        binding.basicInfo.text = basic
-        binding.imeiInfo.text = imei
-        binding.storageInfo.text = storage
-        binding.macInfo.text = mac + "\n" + MacUtils.getMacAddress() + "\n" + HardWareAddressUtils.getMachineHardwareAddress()
+    private fun goToDeviceInfo() {
+        startActivity(Intent(this, DeviceInfoActivity::class.java))
     }
+
 
     private val client = OkHttpClient()
 

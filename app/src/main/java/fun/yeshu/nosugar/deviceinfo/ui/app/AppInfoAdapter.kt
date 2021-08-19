@@ -1,6 +1,7 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.ui.app
 
-import `fun`.yeshu.nosugar.deviceinfo.bean.AppInfo
+import `fun`.yeshu.nosugar.deviceinfo.R
+import `fun`.yeshu.nosugar.deviceinfo.model.AppInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

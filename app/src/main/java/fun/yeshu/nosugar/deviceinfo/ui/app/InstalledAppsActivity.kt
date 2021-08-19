@@ -1,13 +1,15 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.ui.app
 
-import `fun`.yeshu.nosugar.deviceinfo.bean.AppInfo
+import `fun`.yeshu.nosugar.deviceinfo.utils.ApkUtils
+import `fun`.yeshu.nosugar.deviceinfo.R
+import `fun`.yeshu.nosugar.deviceinfo.model.AppInfo
 import `fun`.yeshu.nosugar.deviceinfo.databinding.ActivityInstalledAppsBinding
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
-import android.view.ActionMode
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,17 +43,14 @@ class InstalledAppsActivity : AppCompatActivity() {
                 it.loadIcon(packageManager)
             )
         }
-        println("---${data.size}")
         val adapter = AppInfoAdapter(data)
-        adapter.setListener(object: AppInfoAdapter.OnClickListener{
+        adapter.setListener(object: AppInfoAdapter.OnClickListener {
             override fun onClick(appInfo: AppInfo) {
-                Toast.makeText(this@InstalledAppsActivity, "upload apk file", Toast.LENGTH_SHORT).show();
+                showDialog(appInfo)
             }
 
         })
         binding.recyclerView.adapter = adapter
-
-        startActionMode(initActionMode())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -61,29 +60,20 @@ class InstalledAppsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initActionMode(): ActionMode.Callback {
-        val callback = object: ActionMode.Callback {
-            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                mode?.let {
-                    val inflater : MenuInflater = it.menuInflater
-                    inflater.inflate(R.menu.menu_upload, menu)
-                }
-                return true
-            }
-
-            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                return false
-            }
-
-            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-                return false
-            }
-
-            override fun onDestroyActionMode(mode: ActionMode?) {
-
-            }
-
+    private fun showDialog(appInfo: AppInfo) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("确认上传apk文件")
+        builder.setNegativeButton("取消"
+        ) { dialog, which -> dialog?.dismiss() }
+        builder.setPositiveButton("确定"
+        ) { dialog, which ->
+            dialog?.dismiss()
+            uploadApk(appInfo)
         }
-        return callback
+        builder.create().show()
+    }
+
+    private fun uploadApk(appInfo: AppInfo){
+
     }
 }

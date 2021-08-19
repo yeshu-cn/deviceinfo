@@ -1,4 +1,4 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.utils
 
 import android.content.Context
 import android.content.Intent

@@ -1,6 +1,8 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.ui.message
 
-import `fun`.yeshu.nosugar.deviceinfo.bean.MessageInfo
+import `fun`.yeshu.nosugar.deviceinfo.R
+import `fun`.yeshu.nosugar.deviceinfo.model.MessageInfo
+import `fun`.yeshu.nosugar.deviceinfo.utils.TimeUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +11,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class MessageAdapter(
-    private val data: List<MessageInfo>
+    private var data: List<MessageInfo>
 ) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
     private var listener: OnClickListener? = null
     fun setListener(listener: OnClickListener) {
         this.listener = listener
+    }
+
+    fun updateData(data: List<MessageInfo>) {
+        this.data = data
+        selectMode = false
+        notifyDataSetChanged()
     }
 
     var selectMode: Boolean = false
@@ -38,8 +46,22 @@ class MessageAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.tvPhone.text = item.address
-        holder.tvTime.text = item.date
+        if (null == item.contactName) {
+            holder.tvPhone.text = item.address
+        } else {
+            holder.tvPhone.text = String.format("%s(%s)", item.contactName, item.address)
+        }
+        when (item.type) {
+            1 -> {
+                holder.tvTime.text = String.format("%s(%s)", TimeUtils.formatTime(item.date), "发送")
+            }
+            2 -> {
+                holder.tvTime.text = String.format("%s(%s)", TimeUtils.formatTime(item.date), "接受")
+            }
+            else -> {
+                holder.tvTime.text = String.format("%s(%s)", TimeUtils.formatTime(item.date), "unknown")
+            }
+        }
         holder.tvContent.text = item.body
 
         if (item.selected) {

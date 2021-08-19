@@ -1,7 +1,13 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.ui.message
 
-import `fun`.yeshu.nosugar.deviceinfo.bean.MessageInfo
+import `fun`.yeshu.nosugar.deviceinfo.R
+import `fun`.yeshu.nosugar.deviceinfo.utils.SmsUtils
+import `fun`.yeshu.nosugar.deviceinfo.model.MessageInfo
 import `fun`.yeshu.nosugar.deviceinfo.databinding.ActivityMessageListBinding
+import `fun`.yeshu.nosugar.deviceinfo.model.User
+import `fun`.yeshu.nosugar.deviceinfo.net.RequestFactory
+import `fun`.yeshu.nosugar.deviceinfo.ui.call.CallRecordAdapter
+import `fun`.yeshu.nosugar.deviceinfo.utils.CallInfoUtils
 import android.os.Bundle
 import android.view.ActionMode
 import android.view.Menu
@@ -11,6 +17,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import android.R.attr.data
+import android.content.pm.PackageManager
+
 
 class MessageListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMessageListBinding
@@ -40,7 +51,7 @@ class MessageListActivity : AppCompatActivity() {
         val data = SmsUtils.getSmsInPhone(this)
         adapter = MessageAdapter(data)
 
-        adapter.setListener(object: MessageAdapter.OnClickListener{
+        adapter.setListener(object: MessageAdapter.OnClickListener {
             override fun onClick(position: Int, item: MessageInfo) {
                 if (adapter.selectMode) {
                     if (item.selected) {
@@ -100,7 +111,7 @@ class MessageListActivity : AppCompatActivity() {
             }
 
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-                Toast.makeText(this@MessageListActivity, "select ${selectData.size}", Toast.LENGTH_SHORT).show()
+                upload()
                 return true
             }
 
@@ -114,5 +125,28 @@ class MessageListActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            val data = SmsUtils.getSmsInPhone(this)
+            selectData.clear()
+            adapter.updateData(data)
+        }
+    }
+
+    private fun upload() {
+        val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+        val request = RequestFactory.createMessageRequest(this, selectData)
+        val data = gson.toJson(request)
+        println(data)
+        val user = User("1", "2", "3", "1")
+        println("-------->${gson.toJson(selectData)}")
+        Toast.makeText(this@MessageListActivity, data, Toast.LENGTH_SHORT).show()
     }
 }

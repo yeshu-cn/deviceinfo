@@ -1,4 +1,4 @@
-package `fun`.yeshu.nosugar.deviceinfo.bean
+package `fun`.yeshu.nosugar.deviceinfo.model
 
 import android.graphics.drawable.Drawable
 

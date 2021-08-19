@@ -1,6 +1,6 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.utils
 
-import `fun`.yeshu.nosugar.deviceinfo.bean.CallRecord
+import `fun`.yeshu.nosugar.deviceinfo.model.CallRecord
 import android.Manifest
 import android.content.Context
 import android.provider.CallLog
@@ -17,6 +17,7 @@ object CallInfoUtils {
             // 从清单文件可知该提供者是CallLogProvider，且通话记录相关操作被封装到了Calls类中
             val uri = CallLog.Calls.CONTENT_URI
             val projection = arrayOf(
+                CallLog.Calls.CACHED_NAME,
                 CallLog.Calls.NUMBER,  // 号码
                 CallLog.Calls.DATE,  // 日期
                 CallLog.Calls.TYPE, // 类型：来电、去电、未接
@@ -24,11 +25,12 @@ object CallInfoUtils {
             )
             val cursor = resolver.query(uri, projection, null, null, null)
             while (cursor!!.moveToNext()) {
-                val number = cursor.getString(0)
-                val date = cursor.getLong(1)
-                val type = cursor.getInt(2)
-                val duration = cursor.getLong(3)
-                infos.add(CallRecord(number, date, type, duration))
+                val name = cursor.getString(0)
+                val number = cursor.getString(1)
+                val date = cursor.getLong(2)
+                val type = cursor.getInt(3)
+                val duration = cursor.getLong(4)
+                infos.add(CallRecord(name, number, date, duration, type))
             }
             cursor.close()
         }

@@ -1,4 +1,4 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.utils
 
 import android.content.ContentValues
 import android.content.Context
@@ -10,11 +10,6 @@ import androidx.core.content.FileProvider
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
-
-
-import android.content.ContentResolver
-
-
 
 
 object FileUtils {

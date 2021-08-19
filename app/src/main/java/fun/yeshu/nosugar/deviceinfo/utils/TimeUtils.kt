@@ -1,4 +1,4 @@
-package `fun`.yeshu.nosugar.deviceinfo
+package `fun`.yeshu.nosugar.deviceinfo.utils
 
 import java.text.SimpleDateFormat
 import java.util.*
