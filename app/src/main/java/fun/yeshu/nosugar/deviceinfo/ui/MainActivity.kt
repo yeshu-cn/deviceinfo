@@ -1,5 +1,6 @@
 package `fun`.yeshu.nosugar.deviceinfo.ui
 
+import `fun`.yeshu.nosugar.deviceinfo.R
 import `fun`.yeshu.nosugar.deviceinfo.utils.SpUtils
 import `fun`.yeshu.nosugar.deviceinfo.ui.app.InstalledAppsActivity
 import `fun`.yeshu.nosugar.deviceinfo.ui.call.CallHistoryActivity
@@ -9,8 +10,6 @@ import `fun`.yeshu.nosugar.deviceinfo.ui.message.MessageListActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import okhttp3.*
-import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "无糖信息采集工具"
+        supportActionBar?.title = getString(R.string.title_main)
 
         binding.btnDeviceInfo.setOnClickListener {
             goToDeviceInfo()
@@ -58,45 +57,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToCallLog() {
         startActivity(Intent(this, CallHistoryActivity::class.java))
-        //println("callLog->${CallInfoUtils.getCallInfos(this).size}")
     }
 
     private fun goToSmsLog() {
-        //run()
         startActivity(Intent(this, MessageListActivity::class.java))
-        //println("sms->${SmsUtils.getSmsInPhone(this).size}")
     }
 
     private fun goToDeviceInfo() {
         startActivity(Intent(this, DeviceInfoActivity::class.java))
     }
-
-
-    private val client = OkHttpClient()
-
-    fun run() {
-        val request = Request.Builder()
-            .url("http://publicobject.com/helloworld.txt")
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                response.use {
-                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-                    for ((name, value) in response.headers) {
-                        println("$name: $value")
-                    }
-
-                    println(response.body!!.string())
-                }
-            }
-        })
-    }
-
-
 }

@@ -65,10 +65,6 @@ object DeviceInfoUtils {
         }
     }
 
-    fun getAndroidId(context: Context): String? {
-        return ""
-    }
-
     fun getSN(): String? {
         var serial = ""
         //通过android.os获取sn号
@@ -93,9 +89,4 @@ object DeviceInfoUtils {
         }
         return serial
     }
-
-    fun getDeviceId(): String? {
-        return ""
-    }
-
 }

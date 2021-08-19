@@ -12,4 +12,13 @@
     <string name="title_activity_start_up">StartUpActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_set_info">设置案件信息</string>
+    <string name="errot_input_not_null">can not null</string>
+    <string name="title_main">无糖信息采集工具</string>
+    <string name="title_device_info">设备基本信息</string>
+    <string name="title_call_history">通话记录</string>
+    <string name="title_installed_app">已安装的程序</string>
+    <string name="msg_upload_apk">确认上传apk文件</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
 </resources>

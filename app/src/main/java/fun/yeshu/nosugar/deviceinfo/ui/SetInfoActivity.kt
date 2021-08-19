@@ -1,17 +1,15 @@
 package `fun`.yeshu.nosugar.deviceinfo.ui
 
+import `fun`.yeshu.nosugar.deviceinfo.R
 import `fun`.yeshu.nosugar.deviceinfo.utils.SpUtils
 import `fun`.yeshu.nosugar.deviceinfo.databinding.ActivitySetInfoBinding
 import `fun`.yeshu.nosugar.deviceinfo.utils.DeviceInfoUtils
 import `fun`.yeshu.nosugar.deviceinfo.utils.PermissionUtils
-import `fun`.yeshu.nosugar.deviceinfo.utils.SystemUtils
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import java.util.*
 
 class SetInfoActivity : AppCompatActivity() {
@@ -24,14 +22,14 @@ class SetInfoActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            title = "设置案件信息"
+            title = getString(R.string.title_set_info)
         }
 
         var caseId = SpUtils.getCaseId(this)
         if (caseId.isEmpty()) {
             caseId = obtainCaseId()
         }
-        var deviceId = SpUtils.getDeviceId(this)
+        val deviceId = SpUtils.getDeviceId(this)
         if (deviceId.isEmpty()) {
             PermissionUtils.checkAndRequestPermission(
                 this, Manifest.permission.READ_PHONE_STATE, 0
@@ -75,11 +73,11 @@ class SetInfoActivity : AppCompatActivity() {
         val caseId = binding.inputCaseId.text.toString()
         val deviceId = binding.inputDeviceId.text.toString()
         if (caseId.isEmpty()) {
-            binding.inputCaseId.error = "can not null"
+            binding.inputCaseId.error = getString(R.string.errot_input_not_null)
             return
         }
         if (deviceId.isEmpty()) {
-            binding.inputDeviceId.error = "can not null"
+            binding.inputDeviceId.error = getString(R.string.errot_input_not_null)
             return
         }
         SpUtils.saveInfo(

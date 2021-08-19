@@ -4,11 +4,8 @@ import `fun`.yeshu.nosugar.deviceinfo.utils.ApkUtils
 import `fun`.yeshu.nosugar.deviceinfo.R
 import `fun`.yeshu.nosugar.deviceinfo.model.AppInfo
 import `fun`.yeshu.nosugar.deviceinfo.databinding.ActivityInstalledAppsBinding
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -26,7 +23,7 @@ class InstalledAppsActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-            title = "已安装的程序"
+            title = getString(R.string.title_installed_app)
         }
 
         val dividerItemDecoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
@@ -62,11 +59,11 @@ class InstalledAppsActivity : AppCompatActivity() {
 
     private fun showDialog(appInfo: AppInfo) {
         val builder = AlertDialog.Builder(this)
-        builder.setMessage("确认上传apk文件")
-        builder.setNegativeButton("取消"
-        ) { dialog, which -> dialog?.dismiss() }
-        builder.setPositiveButton("确定"
-        ) { dialog, which ->
+        builder.setMessage(getString(R.string.msg_upload_apk))
+        builder.setNegativeButton(getString(R.string.cancel)
+        ) { dialog, _ -> dialog?.dismiss() }
+        builder.setPositiveButton(getString(R.string.confirm)
+        ) { dialog, _ ->
             dialog?.dismiss()
             uploadApk(appInfo)
         }
@@ -74,6 +71,6 @@ class InstalledAppsActivity : AppCompatActivity() {
     }
 
     private fun uploadApk(appInfo: AppInfo){
-
+        // todo
     }
 }

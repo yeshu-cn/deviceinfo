@@ -3,11 +3,9 @@ package `fun`.yeshu.nosugar.deviceinfo.ui.device
 import `fun`.yeshu.nosugar.deviceinfo.R
 import `fun`.yeshu.nosugar.deviceinfo.databinding.ActivityDeviceInfoBinding
 import `fun`.yeshu.nosugar.deviceinfo.model.DeviceInfo
-import `fun`.yeshu.nosugar.deviceinfo.net.Request
 import `fun`.yeshu.nosugar.deviceinfo.net.RequestFactory
 import `fun`.yeshu.nosugar.deviceinfo.utils.DeviceInfoUtils
 import `fun`.yeshu.nosugar.deviceinfo.utils.PermissionUtils
-import `fun`.yeshu.nosugar.deviceinfo.utils.SmsUtils
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +26,7 @@ class DeviceInfoActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            title = "设备基本信息"
+            title = getString(R.string.title_device_info)
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }

@@ -4,10 +4,7 @@ import `fun`.yeshu.nosugar.deviceinfo.R
 import `fun`.yeshu.nosugar.deviceinfo.utils.SmsUtils
 import `fun`.yeshu.nosugar.deviceinfo.model.MessageInfo
 import `fun`.yeshu.nosugar.deviceinfo.databinding.ActivityMessageListBinding
-import `fun`.yeshu.nosugar.deviceinfo.model.User
 import `fun`.yeshu.nosugar.deviceinfo.net.RequestFactory
-import `fun`.yeshu.nosugar.deviceinfo.ui.call.CallRecordAdapter
-import `fun`.yeshu.nosugar.deviceinfo.utils.CallInfoUtils
 import android.os.Bundle
 import android.view.ActionMode
 import android.view.Menu
@@ -17,9 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import android.R.attr.data
 import android.content.pm.PackageManager
 
 
@@ -145,8 +140,6 @@ class MessageListActivity : AppCompatActivity() {
         val request = RequestFactory.createMessageRequest(this, selectData)
         val data = gson.toJson(request)
         println(data)
-        val user = User("1", "2", "3", "1")
-        println("-------->${gson.toJson(selectData)}")
         Toast.makeText(this@MessageListActivity, data, Toast.LENGTH_SHORT).show()
     }
 }

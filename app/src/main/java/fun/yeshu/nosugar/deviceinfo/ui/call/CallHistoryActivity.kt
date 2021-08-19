@@ -35,7 +35,7 @@ class CallHistoryActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-            title = "通话记录"
+            title = getString(R.string.title_call_history)
         }
 
         callback = initActionMode()

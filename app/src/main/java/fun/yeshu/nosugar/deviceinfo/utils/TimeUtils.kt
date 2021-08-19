@@ -11,16 +11,15 @@ object TimeUtils {
     }
 
     fun formatDuration(duration: Long): String {
-        var hh = "00"
-        var mm = "00"
-        var ss = "00"
+        val mm: String
+        val ss: String
 
-        hh = String.format("%02d", duration / 3600)
+        val hh: String = String.format("%02d", duration / 3600)
 
-        var mm1 = (duration - hh.toInt() * 3600) / 60
+        val mm1 = (duration - hh.toInt() * 3600) / 60
         mm = String.format("%02d", mm1)
 
-        var ss1 = duration - hh.toInt() * 3600 - mm.toInt() * 60
+        val ss1 = duration - hh.toInt() * 3600 - mm.toInt() * 60
         ss = String.format("%02d", ss1)
         return "${hh}:${mm}:${ss}"
     }

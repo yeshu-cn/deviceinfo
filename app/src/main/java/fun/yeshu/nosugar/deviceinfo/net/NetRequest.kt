@@ -2,7 +2,7 @@ package `fun`.yeshu.nosugar.deviceinfo.net
 
 import com.google.gson.annotations.Expose
 
-data class Request<T>(
+data class NetRequest<T>(
     @Expose
     val caseId: String,
     @Expose
